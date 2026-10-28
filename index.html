@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BarberFlow</title>
+    <meta
+      name="description"
+      content="BarberFlow — agendamento automático para barbeiros autônomos."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="loginModal" class="login-modal">
+      <div class="login-card">
+        <div class="login-brand logo-script">BarberFlow</div>
+
+        <div class="auth-toggle" aria-label="Alternar entre login e cadastro">
+          <button class="auth-tab active" data-auth="login" type="button">Entrar</button>
+          <button class="auth-tab" data-auth="signup" type="button">Criar conta</button>
+        </div>
+
+        <form id="loginForm" class="auth-form active">
+          <label>
+            <span>E-mail</span>
+            <input type="email" value="chrys@barbearia.com" />
+          </label>
+          <label>
+            <span>Senha</span>
+            <input type="password" value="123456" />
+          </label>
+          <button class="primary-btn full" type="submit">Entrar</button>
+          <a href="#" class="text-link">Criar minha conta</a>
+        </form>
+
+        <form id="signupForm" class="auth-form">
+          <label>
+            <span>Nome</span>
+            <input type="text" value="ChryS" />
+          </label>
+          <label>
+            <span>Nome da barbearia</span>
+            <input type="text" value="Barbearia ChryS" />
+          </label>
+          <label>
+            <span>WhatsApp</span>
+            <input type="text" value="(42) 99999-9999" />
+          </label>
+          <label>
+            <span>E-mail</span>
+            <input type="email" value="chrys@barbearia.com" />
+          </label>
+          <label>
+            <span>Senha</span>
+            <input type="password" value="123456" />
+          </label>
+          <button class="primary-btn full" type="submit">Criar conta</button>
+        </form>
+      </div>
+    </div>
+
+    <div id="appShell" class="app-shell hidden">
+      <header class="topbar">
+        <div class="brand-wrap">
+          <div class="logo-mark">PV</div>
+          <div class="brand-text logo-script">BarberFlow</div>
+        </div>
+
+        <nav class="main-nav" aria-label="Navegação principal">
+          <a href="#landing">Início</a>
+          <a href="#problem">Problema</a>
+          <a href="#how">Como funciona</a>
+          <a href="#demo">Demonstração</a>
+          <a href="#pricing">Preços</a>
+        </nav>
+
+        <button id="testFreeBtn" class="primary-btn small" type="button">Testar gratuitamente</button>
+      </header>
+
+      <main class="page-content">
+        <section id="landing" class="section hero-section">
+          <div class="hero-copy">
+            <span class="eyebrow">SaaS para barbeiros</span>
+            <h1>Você corta cabelo.<br /><span class="logo-script hero-logo">BarberFlow</span> cuida dos horários.</h1>
+            <p>
+              Seus clientes escolhem o serviço e o melhor horário disponível. O agendamento
+              entra automaticamente na sua agenda — mesmo enquanto você está atendendo.
+            </p>
+
+            <div class="hero-actions">
+              <button class="primary-btn" type="button" data-scroll="demo">Experimentar demonstração</button>
+              <button class="secondary-btn" type="button" data-scroll="how">Ver como funciona</button>
+            </div>
+
+            <ul class="hero-points">
+              <li>Economize tempo</li>
+              <li>Evite conflitos</li>
+              <li>Receba agendamentos 24/7</li>
+            </ul>
+          </div>
+
+          <div class="phone-demo" aria-label="Simulação de WhatsApp para agendamento">
+            <div class="phone-header">
+              <span>WhatsApp</span>
+              <span class="status-pill">online</span>
+            </div>
+            <div class="chat-sim">
+              <div class="message from-client">
+                <span>Cliente:</span>
+                <p>Oi, queria marcar um corte para amanhã.</p>
+              </div>
+              <div class="message from-system">
+                <span>Sistema:</span>
+                <p>Claro! Qual serviço você gostaria?</p>
+              </div>
+              <div class="service-list">
+                <button type="button">✂️ Corte — R$ 40</button>
+                <button type="button">🧔 Corte + Barba — R$ 65</button>
+              </div>
+              <div class="message from-system">
+                <span>Sistema:</span>
+                <p>Perfeito. Estes são os horários disponíveis amanhã:</p>
+              </div>
+              <div class="times-row">
+                <span>09:00</span>
+                <span>10:30</span>
+                <span>14:00</span>
+                <span>16:30</span>
+              </div>
+              <div class="message from-system confirm">
+                <span>Sistema:</span>
+                <p>Agendamento confirmado! ✂️<br />Amanhã às 14:00.</p>
+              </div>
+            </div>
+
+            <div class="mini-agenda">
+              <div class="mini-header">
+                <span>Agenda</span>
+                <span class="dot green"></span>
+              </div>
+              <div class="mini-row">
+                <span>09:00</span>
+                <span>Livres</span>
+              </div>
+              <div class="mini-row active">
+                <span>14:00</span>
+                <span>Reservado</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="problem" class="section problem-section">
+          <div class="section-heading">
+            <span class="eyebrow">O problema</span>
+            <h2>Seu cliente manda mensagem justamente quando você está ocupado.</h2>
+          </div>
+
+          <div class="problem-flow">
+            <div class="flow-card">
+              <span class="step-tag">Cliente</span>
+              <p>“Tem horário amanhã?”</p>
+            </div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-card blocked">
+              <span class="step-tag">Barbeiro</span>
+              <p>“Depois eu respondo”</p>
+            </div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-card muted">
+              <span class="step-tag">Mensagem</span>
+              <p>Esquecida no WhatsApp</p>
+            </div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-card danger">
+              <span class="step-tag">Resultado</span>
+              <p>Cliente procura outro barbeiro.</p>
+            </div>
+          </div>
+
+          <div class="problem-list">
+            <div class="problem-item"><span>✉️</span> mensagens acumuladas</div>
+            <div class="problem-item"><span>⏳</span> demora para responder</div>
+            <div class="problem-item"><span>🙋</span> clientes esperando</div>
+            <div class="problem-item"><span>🗓️</span> horários esquecidos</div>
+            <div class="problem-item"><span>⚠️</span> conflitos de agenda</div>
+            <div class="problem-item"><span>📉</span> horários vagos</div>
+            <div class="problem-item"><span>💸</span> clientes perdidos</div>
+          </div>
+        </section>
+
+        <section id="how" class="section">
+          <div class="section-heading">
+            <span class="eyebrow">Como funciona</span>
+            <h2>Seu agendamento fica organizado sem atrapalhar o atendimento</h2>
+          </div>
+
+          <div class="steps-grid">
+            <article class="step-card">
+              <span class="step-num">01</span>
+              <h3>Você configura sua agenda</h3>
+              <p>Cadastre serviços, preços, duração, dias de trabalho, intervalos e horários bloqueados.</p>
+            </article>
+            <article class="step-card">
+              <span class="step-num">02</span>
+              <h3>Você recebe seu link</h3>
+              <p>Exemplo: pvbarber.com/seu-nome. O link vai para WhatsApp, Instagram e bio.</p>
+            </article>
+            <article class="step-card">
+              <span class="step-num">03</span>
+              <h3>O cliente escolhe sozinho</h3>
+              <p>Ele define serviço, profissional, data e horário sem precisar conversar com você.</p>
+            </article>
+            <article class="step-card">
+              <span class="step-num">04</span>
+              <h3>A agenda atualiza automaticamente</h3>
+              <p>O horário fica reservado e aparece direto no painel do barbeiro.</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="demo" class="section demo-section">
+          <div class="section-heading">
+            <span class="eyebrow">Demonstração</span>
+            <h2>Experimente como seu cliente agendaria</h2>
+          </div>
+
+          <div class="booking-demo">
+            <div class="booking-steps">
+              <div id="demoWizard" class="wizard-box">
+                <div class="wizard-header">
+                  <h3>Agende seu horário</h3>
+                  <span>Barbearia P.V</span>
+                </div>
+                <div id="demoStage"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section dashboard-section">
+          <div class="section-heading narrow">
+            <span class="eyebrow">Dashboard</span>
+            <h2>Bom dia, P.V 👋</h2>
+          </div>
+
+          <div class="summary-row" id="summaryCards"></div>
+
+          <div class="dashboard-grid">
+            <div class="panel card-panel">
+              <div class="panel-header">
+                <h3>📅 Agenda de hoje</h3>
+                <button class="ghost-btn" type="button">Hoje</button>
+              </div>
+              <div id="todayAgenda" class="agenda-list"></div>
+            </div>
+
+            <div class="panel card-panel">
+              <div class="panel-header">
+                <h3>⚡ Modo atendimento</h3>
+                <button id="modeToggle" class="mode-toggle" type="button">Ativar modo atendimento</button>
+              </div>
+              <div id="modeStatus" class="mode-status idle">
+                <span class="mode-dot"></span>
+                <p>Atendimento inativo</p>
+              </div>
+              <div class="mode-example">
+                <p><strong>Cliente:</strong> “Tem horário hoje?”</p>
+                <p><strong>Sistema:</strong> “Olá! O ChryS está atendendo no momento, mas posso verificar os horários disponíveis para você.”</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section app-section" id="agendaSection">
+          <div class="section-heading narrow">
+            <span class="eyebrow">Agenda</span>
+            <h2>Calendário interativo</h2>
+          </div>
+
+          <div class="toolbar">
+            <button class="primary-btn small" id="newBookingBtn" type="button">+ Novo agendamento</button>
+            <button class="secondary-btn small" id="blockTimeBtn" type="button">Bloquear horário</button>
+            <div class="segmented-control">
+              <button class="segmented active" data-agenda-view="day" type="button">Hoje</button>
+              <button class="segmented" data-agenda-view="week" type="button">Semana</button>
+            </div>
+          </div>
+
+          <div id="agendaCalendar" class="agenda-calendar"></div>
+        </section>
+
+        <section class="section app-section" id="clientsSection">
+          <div class="section-heading narrow">
+            <span class="eyebrow">Clientes</span>
+            <h2>Base de clientes</h2>
+          </div>
+
+          <div class="clients-layout">
+            <div class="panel card-panel">
+              <table class="clients-table">
+                <thead>
+                  <tr>
+                    <th>Nome</th>
+                    <th>Último atendimento</th>
+                    <th>Serviço</th>
+                    <th>Próximo horário</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="clientsTableBody"></tbody>
+              </table>
+            </div>
+            <aside id="clientDetail" class="panel card-panel client-detail"></aside>
+          </div>
+        </section>
+
+        <section class="section app-section">
+          <div class="section-heading narrow">
+            <span class="eyebrow">Radar de clientes</span>
+            <h2>Clientes que podem estar próximos de voltar</h2>
+          </div>
+
+          <div id="radarPanel" class="radar-panel"></div>
+        </section>
+
+        <section class="section app-section" id="assistantSection">
+          <div class="section-heading narrow">
+            <span class="eyebrow">Assistente</span>
+            <h2>Seu assistente pessoal</h2>
+          </div>
+
+          <div class="assistant-panel">
+            <div id="assistantChat" class="assistant-chat" aria-live="polite"></div>
+            <div class="assistant-input-row">
+              <input id="assistantInput" type="text" placeholder="Pergunte algo sobre sua agenda..." />
+              <button id="assistantSend" class="primary-btn small" type="button">Enviar</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="section app-section" id="configSection">
+          <div class="section-heading narrow">
+            <span class="eyebrow">Configuração</span>
+            <h2>Configurações da barbearia</h2>
+          </div>
+
+          <form id="settingsForm" class="settings-grid">
+            <label>
+              <span>Nome da barbearia</span>
+              <input id="fieldBusinessName" type="text" />
+            </label>
+            <label>
+              <span>Nome do barbeiro</span>
+              <input id="fieldOwnerName" type="text" />
+            </label>
+            <label>
+              <span>WhatsApp</span>
+              <input id="fieldWhatsApp" type="text" />
+            </label>
+            <label>
+              <span>Endereço</span>
+              <input id="fieldAddress" type="text" />
+            </label>
+            <label>
+              <span>Instagram</span>
+              <input id="fieldInstagram" type="text" />
+            </label>
+            <div class="settings-services">
+              <h3>Serviços</h3>
+              <div id="servicesList" class="services-list"></div>
+            </div>
+            <div class="settings-hours">
+              <h3>Horários</h3>
+              <div id="hoursList" class="hours-list"></div>
+            </div>
+            <button class="primary-btn full" type="submit">Salvar configuração</button>
+          </form>
+        </section>
+
+        <section class="section app-section" id="linkSection">
+          <div class="section-heading narrow">
+            <span class="eyebrow">Link de agendamento</span>
+            <h2>Seu link de agendamento</h2>
+          </div>
+
+          <div class="link-card panel">
+            <div class="link-url">pvbarber.com/pv</div>
+            <div class="link-actions">
+              <button id="copyLinkBtn" class="primary-btn small" type="button">Copiar link</button>
+              <button id="viewAsClientBtn" class="secondary-btn small" type="button">Ver como cliente</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="section app-section" id="whatsappSection">
+          <div class="section-heading narrow">
+            <span class="eyebrow">WhatsApp</span>
+            <h2>Integração ativa</h2>
+          </div>
+
+          <div class="whatsapp-card panel">
+            <div class="wa-head">
+              <span class="wa-badge">✓</span>
+              <div>
+                <strong>WhatsApp conectado</strong>
+                <small>(42) 99999-9999</small>
+              </div>
+            </div>
+            <p class="wa-status">Status: “Pronto para receber agendamentos”</p>
+            <div class="wa-samples">
+              <div>“Seu horário foi confirmado.”</div>
+              <div>“Seu atendimento é amanhã às 14:00.”</div>
+              <div>“Seu horário foi cancelado.”</div>
+              <div>“Temos novos horários disponíveis.”</div>
+            </div>
+          </div>
+        </section>
+
+        <section id="pricing" class="section pricing-section">
+          <div class="section-heading">
+            <span class="eyebrow">Preços</span>
+            <h2>Comece de forma simples e valide o produto</h2>
+          </div>
+
+          <div class="pricing-grid">
+            <article class="price-card">
+              <span class="plan-name">Plano Inicial</span>
+              <div class="plan-price">R$ 49<span>/mês</span></div>
+              <ul>
+                <li>✓ Agenda online</li>
+                <li>✓ Link de agendamento</li>
+                <li>✓ Cadastro de clientes</li>
+                <li>✓ Confirmação de horários</li>
+                <li>✓ Histórico de clientes</li>
+              </ul>
+              <button class="secondary-btn full" type="button">Comece gratuitamente</button>
+            </article>
+
+            <article class="price-card featured">
+              <span class="plan-name">Plano Profissional</span>
+              <div class="plan-price">R$ 99<span>/mês</span></div>
+              <ul>
+                <li>✓ Tudo do Inicial</li>
+                <li>✓ Assistente de IA</li>
+                <li>✓ Radar de clientes</li>
+                <li>✓ Mensagens automáticas</li>
+                <li>✓ Relatórios</li>
+                <li>✓ Recursos avançados</li>
+              </ul>
+              <button class="primary-btn full" type="button">Comece gratuitamente</button>
+            </article>
+          </div>
+        </section>
+
+        <section class="section cta-section">
+          <h2>Pare de perder tempo marcando horários.</h2>
+          <p>Deixe o cliente cuidar do próprio agendamento enquanto você cuida do que realmente importa: seu atendimento.</p>
+          <button class="primary-btn" type="button">Testar o BarberFlow</button>
+        </section>
+      </main>
+
+      <nav class="mobile-nav" aria-label="Navegação mobile">
+        <button class="mobile-tab active" data-scroll="landing" type="button">Início</button>
+        <button class="mobile-tab" data-scroll="agendaSection" type="button">Agenda</button>
+        <button class="mobile-tab" data-scroll="clientsSection" type="button">Clientes</button>
+        <button class="mobile-tab" data-scroll="assistantSection" type="button">Assistente</button>
+        <button class="mobile-tab" data-scroll="configSection" type="button">Config.</button>
+      </nav>
+    </div>
+
+    <script src="scripts.js"></script>
+  </body>
+</html>
