@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Bola Vermelha Quicando</title>
+  <style>
+    html,body{height:100%;margin:0;background:#111}
+    .stage{position:relative;width:100%;height:100vh;overflow:hidden;display:flex;align-items:flex-start;justify-content:center}
+    canvas{display:block;background:linear-gradient(#0b0b0d,#071017)}
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <canvas id="c"></canvas>
+  </div>
+  <script>
+    const canvas = document.getElementById('c');
+    const ctx = canvas.getContext('2d');
+    function resize(){
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    const ball = { x: canvas.width/2, y: 80, vx: 200, vy: 0, r: 36 };
+    const gravity = 1500;
+    const damping = 0.75;
+
+    let last = performance.now();
+    function step(now){
+      const dt = Math.min((now - last)/1000, 0.03);
+      last = now;
+
+      ball.vy += gravity * dt;
+      ball.x += ball.vx * dt;
+      ball.y += ball.vy * dt;
+
+      if (ball.y + ball.r > canvas.height) {
+        ball.y = canvas.height - ball.r;
+        ball.vy = -ball.vy * damping;
+      }
+      if (ball.x + ball.r > canvas.width) {
+        ball.x = canvas.width - ball.r;
+        ball.vx = -ball.vx * damping;
+      }
+      if (ball.x - ball.r < 0) {
+        ball.x = ball.r;
+        ball.vx = -ball.vx * damping;
+      }
+
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      const shadowScale = 1 - Math.min((ball.y / (canvas.height - ball.r)), 1);
+      ctx.beginPath();
+      ctx.ellipse(ball.x, canvas.height - 20, ball.r * 0.9 * (0.5 + 0.5*shadowScale), 8 * (0.4 + 0.6*shadowScale), 0, 0, Math.PI*2);
+      ctx.fillStyle = 'rgba(0,0,0,0.45)';
+      ctx.fill();
+
+      const grad = ctx.createRadialGradient(ball.x - ball.r*0.3, ball.y - ball.r*0.3, ball.r*0.1, ball.x, ball.y, ball.r);
+      grad.addColorStop(0,'#ff6b6b');
+      grad.addColorStop(0.6,'#e11d1d');
+      grad.addColorStop(1,'#8b0000');
+      ctx.beginPath();
+      ctx.arc(ball.x, ball.y, ball.r, 0, Math.PI*2);
+      ctx.fillStyle = grad;
+      ctx.fill();
+
+      requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  </script>
+</body>
+</html>
